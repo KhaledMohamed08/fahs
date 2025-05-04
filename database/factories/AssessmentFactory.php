@@ -30,7 +30,7 @@ class AssessmentFactory extends Factory
             'has_timer' => $hasTimer,
             'duration_minutes' => $hasTimer ? fake()->numberBetween(30, 90) : null,
             'category_id' => Category::inRandomOrder()->value('id'),
-            'user_id' => User::inRandomOrder()->value('id'),
+            'user_id' => User::where('type', 'foundation')->inRandomOrder()->value('id'),
         ];
     }
 }

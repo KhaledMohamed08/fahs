@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Question extends Model
+{
+    /** @use HasFactory<\Database\Factories\QuestionFactory> */
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'assessment_id',
+        'user_id',
+        'type',
+        'title',
+        'is_correct',
+        'options',
+        'text_answer_model',
+        'score',
+    ];
+
+    protected $casts = [
+        'options' => 'array',
+    ];
+
+    public function assessment(): BelongsTo
+    {
+        return $this->belongsTo(Assessment::class);
+    }
+}
