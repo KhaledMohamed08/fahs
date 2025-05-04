@@ -10,3 +10,6 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 @import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.min.css";
+@import "../assets/vendor/glightbox/css/glightbox.min.css";
+@import "../assets/css/main.css";
