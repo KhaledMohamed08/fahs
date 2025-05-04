@@ -21,7 +21,7 @@
                     <p class="text-muted">Fill in your details to register</p>
                 </div>
 
-                <form action="#" method="POST" class="needs-validation" novalidate>
+                <form action="{{ route('register') }}" method="POST" class="needs-validation" novalidate>
                     @csrf
 
                     <!-- Name -->

@@ -14,7 +14,7 @@
                     <p class="text-muted">Login to your account</p>
                 </div>
 
-                <form action="#" method="POST">
+                <form action="{{ route('login') }}" method="POST">
                     @csrf
 
                     <!-- Email or Phone -->
