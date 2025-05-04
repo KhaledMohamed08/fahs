@@ -8,3 +8,6 @@ Route::get('/test', function () {
 Route::get('/', function () {
     return view('app');
 })->name('home');
+
+
+require __DIR__.'/auth.php';

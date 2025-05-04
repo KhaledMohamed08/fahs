@@ -79,7 +79,7 @@
 
         {{-- Auth / Guest Buttons --}}
         @guest
-            <a class="btn-getstarted" href="#">Login / Register</a>
+            <a class="btn-getstarted" href="{{ route('page.login') }}">Login / Register</a>
         @endguest
 
     </div>
