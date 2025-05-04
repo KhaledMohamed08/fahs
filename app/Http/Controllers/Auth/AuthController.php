@@ -9,7 +9,6 @@ use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Lockout;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
