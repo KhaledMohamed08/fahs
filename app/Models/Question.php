@@ -17,7 +17,7 @@ class Question extends Model
         'user_id',
         'type',
         'title',
-        'is_correct',
+        'is_true',
         'options',
         'text_answer_model',
         'score',

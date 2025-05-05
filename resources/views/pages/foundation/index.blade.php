@@ -21,7 +21,7 @@
                             difficulty levels, assigning scores, and defining correct answers. This method gives you full
                             control over every detail of the assessment structure.
                         </p>
-                        <a href="#" class="btn btn-primary">
+                        <a href="{{ route('assessments.create') }}" class="btn btn-primary">
                             Go to create <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>

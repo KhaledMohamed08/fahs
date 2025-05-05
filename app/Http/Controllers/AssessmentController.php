@@ -6,6 +6,8 @@ use App\Http\Requests\StoreAssessmentRequest;
 use App\Http\Requests\UpdateAssessmentRequest;
 use App\Models\Assessment;
 use App\Services\AssessmentService;
+use App\Services\CategoryService;
+use Illuminate\Support\Facades\View;
 
 class AssessmentController extends Controller
 {
@@ -23,7 +25,9 @@ class AssessmentController extends Controller
      */
     public function create()
     {
-        //
+        $categories = app(CategoryService::class)->index();
+
+        return view('pages.assessment.create', compact('categories'));
     }
 
     /**
@@ -31,7 +35,7 @@ class AssessmentController extends Controller
      */
     public function store(StoreAssessmentRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

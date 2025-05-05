@@ -18,7 +18,6 @@ class AssessmentFactory extends Factory
      */
     public function definition(): array
     {
-        $hasTimer = fake()->boolean();
 
         return [
             'title' => fake()->sentence(3),
@@ -27,8 +26,7 @@ class AssessmentFactory extends Factory
             'passing_percent' => fake()->numberBetween(50, 85),
             'auto_grade' => fake()->boolean(),
             'access' => fake()->randomElement(['public', 'private']),
-            'has_timer' => $hasTimer,
-            'duration_minutes' => $hasTimer ? fake()->numberBetween(30, 90) : null,
+            'duration_minutes' => fake()->optional()->numberBetween(30, 90),
             'category_id' => Category::inRandomOrder()->value('id'),
             'user_id' => User::where('type', 'foundation')->inRandomOrder()->value('id'),
         ];

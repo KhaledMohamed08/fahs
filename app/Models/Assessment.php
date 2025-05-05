@@ -21,7 +21,6 @@ class Assessment extends Model
         'passing_percent',
         'auto_grade',
         'access',
-        'has_timer',
         'duration_minutes',
         'category_id',
         'user_id',
@@ -29,7 +28,6 @@ class Assessment extends Model
 
     protected $casts = [
         'auto_grade' => 'boolean',
-        'has_timer' => 'boolean',
         'difficulty_level' => 'integer',
         'passing_percent' => 'integer',
         'duration_minutes' => 'integer',
@@ -41,12 +39,6 @@ class Assessment extends Model
 
         static::creating(function ($assessment) {
             $assessment->code = self::generateUniqueCode();
-        });
-
-        static::saving(function ($assessment) {
-            if ($assessment->has_timer && empty($assessment->duration_minutes)) {
-                throw new \Exception("Duration is required when timer is enabled.");
-            }
         });
     }
 

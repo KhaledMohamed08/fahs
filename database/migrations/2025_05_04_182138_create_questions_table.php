@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('type', ['free_text', 'true_false', 'multiple_choice']);
             $table->text('title');
             $table->unsignedInteger('score')->default(10);
-            $table->boolean('is_correct')->nullable(); // only for true false questions.
+            $table->boolean('is_true')->nullable(); // only for true false questions.
             $table->json('options')->nullable(); // only for multi choice questions.
             $table->longText('text_answer_model')->nullable(); // only for free text questions.
             $table->timestamps();

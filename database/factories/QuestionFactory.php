@@ -26,7 +26,7 @@ class QuestionFactory extends Factory
             'type' => $type,
             'title' => fake()->sentence(7),
             'score' => fake()->randomElement([10, 20, 30]),
-            'is_correct' => null,
+            'is_true' => null,
             'options' => null,
             'text_answer_model' => null,
         ];
@@ -34,7 +34,7 @@ class QuestionFactory extends Factory
         return match ($type) {
             'true_false' => [
                 ...$base,
-                'is_correct' => fake()->boolean(),
+                'is_true' => fake()->boolean(),
             ],
             'multiple_choice' => [
                 ...$base,
