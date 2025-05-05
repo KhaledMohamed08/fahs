@@ -18,19 +18,19 @@ class BaseService
         return $this->model->all();
     }
 
-    public function get(array $conditions = [])
+    public function get(array $conditions = [], array $relations = [])
     {
-        return $this->model->where($conditions)->get();
+        return $this->model->where($conditions)->with($relations)->get();
     }
 
-    public function getFirst(array $conditions = [])
+    public function getFirst(array $conditions = [], array $relations)
     {
-        return $this->model->where($conditions)->first();
+        return $this->model->where($conditions)->with($relations)->first();
     }
 
-    public function pagination(int $results)
+    public function pagination(int $results, array $conditions, array $relations = [])
     {
-        return $this->model->paginate($results);
+        return $this->model->where($conditions)->with($relations)->paginate($results);
     }
 
     public function find($id)
@@ -59,5 +59,4 @@ class BaseService
     {
         return $this->model->search($query)->get();
     }
-
 }

@@ -1,9 +1,11 @@
 @props([
     'section' => '',
     'description' => '',
+    'class' => '',
 ])
-{{-- Starter Section Section --}}
-<section id="starter-section" class="starter-section section">
+
+{{-- Starter Section --}}
+<section id="starter-section" class="starter-section section {{ $class }}">
 
     {{-- Section Title --}}
     @if (!empty($section))

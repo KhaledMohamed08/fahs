@@ -1,9 +1,10 @@
 @props([
     'title' => '',
     'breadcrumbs' => true,
+    'class' => '',
 ])
 {{-- Page Title --}}
-<div class="page-title light-background">
+<div class="page-title light-background {{ $class }}">
     <x-notification-alert />
 
     @if (!empty($title))

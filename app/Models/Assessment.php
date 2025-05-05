@@ -67,4 +67,9 @@ class Assessment extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

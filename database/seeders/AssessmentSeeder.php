@@ -13,6 +13,6 @@ class AssessmentSeeder extends Seeder
      */
     public function run(): void
     {
-        Assessment::factory(10)->create();
+        Assessment::factory(50)->create();
     }
 }
