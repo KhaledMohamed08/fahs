@@ -3,10 +3,12 @@
 @section('title', 'Paricipant')
 
 @section('content')
-    <x-page-title title="Assessments" />
+    <x-page-title/>
 
     <x-page-section section="Assessments"
-        description="Explore a wide range of assessments tailored to your field. Take more challenges, track your progress, and continuously sharpen your skills.">
+        description="Explore a wide range of assessments tailored to your field. Take more challenges, track your progress, and continuously sharpen your skills."
+        containerClass="container-fluid"
+        containerId="assessments-container">
         <div class="row">
             {{-- Filter Sidebar --}}
             <div class="col-md-3">
@@ -67,7 +69,7 @@
             {{-- Assessment Cards --}}
             <div class="col-md-9">
                 @if ($assessments->count())
-                    <div class="row row-cols-2 row-cols-md-3 g-4">
+                    <div class="row row-cols-2 row-cols-md-4 g-4">
                         @foreach ($assessments as $assessment)
                             <div class="col">
                                 <div class="card position-relative h-100 d-flex flex-column">
@@ -112,11 +114,20 @@
                                                     {{ $assessment->created_at->format('M d, Y') }}
                                                 </div>
                                             </div>
-                                            {{-- Timer --}}
-                                            <div class="d-flex align-items-center mt-2">
-                                                <i class="bi bi-clock me-1"></i>
-                                                {{ $assessment->has_timer ? $assessment->duration_minutes . ' mins' : '--' }}
+                                            <div class="d-flex justify-content-between flex-wrap gap-2">
+                                                {{-- Timer --}}
+                                                <div class="d-flex align-items-center mt-2">
+                                                    <i class="bi bi-clock me-1"></i>
+                                                    {{ $assessment->has_timer ? $assessment->duration_minutes . ' mins' : '--' }}
+                                                </div>
+
+                                                {{-- Auto Grading --}}
+                                                <div class="d-flex align-items-center me-2">
+                                                    <i class="bi bi-check2-square me-1"></i>
+                                                    {{ $assessment->auto_grade ? 'Auto Grading' : 'Manual Grading' }}
+                                                </div>
                                             </div>
+
                                         </div>
 
                                         {{-- CTA Button --}}
@@ -144,3 +155,10 @@
         </div>
     </x-page-section>
 @endsection
+@push('styles')
+    <style>
+        #assessments-container {
+            width: 95%;
+        }
+    </style>
+@endpush

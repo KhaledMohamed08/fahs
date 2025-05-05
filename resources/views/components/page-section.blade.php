@@ -2,10 +2,13 @@
     'section' => '',
     'description' => '',
     'class' => '',
+    'id' => 'starter-section',
+    'containerClass' => 'container',
+    'containerId' => '',
 ])
 
 {{-- Starter Section --}}
-<section id="starter-section" class="starter-section section {{ $class }}">
+<section id="{{ $id }}" class="starter-section section {{ $class }}">
 
     {{-- Section Title --}}
     @if (!empty($section))
@@ -18,9 +21,11 @@
     @endif
     {{-- End Section Title --}}
 
-    <div class="container" data-aos="fade-up">
+    <x-container class="{{ $containerClass }}" id="{{ $containerId }}">
+
         {{ $slot }}
-    </div>
+
+    </x-container>
 
 </section>
-{{-- /Starter Section Section --}}
+{{-- Starter Section Section --}}

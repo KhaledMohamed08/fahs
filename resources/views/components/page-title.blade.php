@@ -28,7 +28,7 @@
     @push('styles')
         <style>
             .page-title {
-                padding: 80px 0 80px 0;
+                padding: 40px 0 80px 0;
             }
         </style>
     @endpush

@@ -13,6 +13,7 @@ class AppController extends Controller
     public function getStarted()
     {
         $categories = app(CategoryService::class)->index();
+        $paginationPerPage = 12;
 
         $filters = array_merge(
             ['access' => 'public'],
@@ -20,8 +21,8 @@ class AppController extends Controller
         );
 
         $assessments = request()->filled('search')
-            ? $this->assessmentService->scoutSearch(request('search'), [], [], 9)
-            : $this->assessmentService->pagination(9, $filters, ['user']);
+            ? $this->assessmentService->scoutSearch(request('search'), [], ['user'], $paginationPerPage)
+            : $this->assessmentService->pagination($paginationPerPage, $filters, ['user']);
 
         return match (Auth::user()->type) {
             'foundation' => view('pages.foundation.index'),
