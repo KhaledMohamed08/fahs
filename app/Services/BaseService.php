@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BaseService
 {
@@ -28,7 +29,7 @@ class BaseService
         return $this->model->where($conditions)->with($relations)->first();
     }
 
-    public function pagination(int $results, array $conditions, array $relations = [])
+    public function pagination(int $results = 10, array $conditions = [], array $relations = [])
     {
         return $this->model->where($conditions)->with($relations)->paginate($results);
     }
@@ -58,5 +59,39 @@ class BaseService
     public function search(string $query)
     {
         return $this->model->search($query)->get();
+    }
+
+    public function scoutSearch(string $field, array $conditions = [], array $relations = [], int $perPage = 0)
+    {
+        $collection = $this->model->search($field)->get();
+
+        if (!empty($conditions)) {
+            $collection = $collection->filter(function ($item) use ($conditions) {
+                foreach ($conditions as $key => $value) {
+                    if ($item->$key != $value) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
+
+        if (!empty($relations)) {
+            $collection->load($relations);
+        }
+
+        if ($perPage > 0) {
+            $currentPage = LengthAwarePaginator::resolveCurrentPage();
+            $items = $collection->forPage($currentPage, $perPage)->values();
+            return new LengthAwarePaginator(
+                $items,
+                $collection->count(),
+                $perPage,
+                $currentPage,
+                ['path' => request()->url(), 'query' => request()->query()]
+            );
+        }
+
+        return $collection->values();
     }
 }

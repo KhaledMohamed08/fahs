@@ -6,14 +6,13 @@
     <x-page-title title="Assessments" />
 
     <x-page-section section="Assessments"
-        description="Explore a wide range of assessments tailored to your field. Take more challenges, track your progress, and continuously sharpen your skills."
-    >
+        description="Explore a wide range of assessments tailored to your field. Take more challenges, track your progress, and continuously sharpen your skills.">
         <div class="row">
             {{-- Filter Sidebar --}}
             <div class="col-md-3">
                 <form method="GET" action="#" class="mb-4">
                     <div class="input-group">
-                        <input type="text" name="search" class="form-control" placeholder="Search assessments..."
+                        <input type="text" name="search" class="form-control" placeholder="Search by code..."
                             value="{{ request('search') }}">
                         <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
                     </div>
@@ -25,31 +24,41 @@
                             <div class="mb-3">
                                 <label for="difficulty-level" class="form-label">Assessment Difficulty</label>
                                 <select name="difficulty_level" id="difficulty-level" class="form-control">
-                                    <option value="" {{ request('difficulty_level') === null ? 'selected' : '' }}>All</option>
-                                    <option value="1" {{ request('difficulty_level') == '1' ? 'selected' : '' }}>Easy</option>
-                                    <option value="2" {{ request('difficulty_level') == '2' ? 'selected' : '' }}>Medium</option>
-                                    <option value="3" {{ request('difficulty_level') == '3' ? 'selected' : '' }}>Hard</option>
+                                    <option value="" {{ request('difficulty_level') === null ? 'selected' : '' }}>All
+                                    </option>
+                                    <option value="1" {{ request('difficulty_level') == '1' ? 'selected' : '' }}>Easy
+                                    </option>
+                                    <option value="2" {{ request('difficulty_level') == '2' ? 'selected' : '' }}>Medium
+                                    </option>
+                                    <option value="3" {{ request('difficulty_level') == '3' ? 'selected' : '' }}>Hard
+                                    </option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="category-id" class="form-label">Category</label>
                                 <select name="category_id" id="category-id" class="form-control">
-                                    <option value="" {{ request('category_id') === null ? 'selected' : '' }}>All</option>
+                                    <option value="" {{ request('category_id') === null ? 'selected' : '' }}>All
+                                    </option>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
+                                        <option value="{{ $category->id }}"
+                                            {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                                            {{ $category->title }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <input type="checkbox" name="has_timer" id="has-timer" value="1" {{ request('has_timer') == '1' ? 'checked' : '' }}>
+                                <input type="checkbox" name="has_timer" id="has-timer" value="1"
+                                    {{ request('has_timer') == '1' ? 'checked' : '' }}>
                                 <label for="has-timer">Has Timer</label>
                             </div>
                             <div class="mb-3">
-                                <input type="checkbox" name="auto_grade" id="auto-grade" value="1" {{ request('auto_grade') == '1' ? 'checked' : '' }}>
+                                <input type="checkbox" name="auto_grade" id="auto-grade" value="1"
+                                    {{ request('auto_grade') == '1' ? 'checked' : '' }}>
                                 <label for="auto-grade">Auto Grade</label>
                             </div>
                             <button class="btn btn-sm btn-primary" type="submit">Apply</button>
-                            <a href="{{ route('get.started') }}" class="btn btn-sm btn-secondary" type="reset">Reset Filters</a>
+                            <a href="{{ route('get.started') }}" class="btn btn-sm btn-secondary" type="reset">Reset
+                                Filters</a>
                         </form>
                     </div>
                 </div>
@@ -121,9 +130,11 @@
                     </div>
 
                     {{-- Pagination --}}
-                    <div class="mt-4">
-                        {{ $assessments->withQueryString()->links() }}
-                    </div>
+                    @if ($assessments instanceof \Illuminate\Contracts\Pagination\Paginator)
+                        <div class="mt-4">
+                            {{ $assessments->withQueryString()->links() }}
+                        </div>
+                    @endif
                 @else
                     <div class="text-center fw-bold">
                         No assessments found.

@@ -8,12 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class AppController extends Controller
 {
+    public function __construct(protected AssessmentService $assessmentService) {}
+
     public function getStarted()
     {
-        $filters = array_merge(['access' => 'public'], collectQueryParams(['page']));
-
-        $assessments = app(AssessmentService::class)->pagination(9, $filters, ['user']);
         $categories = app(CategoryService::class)->index();
+
+        $filters = array_merge(
+            ['access' => 'public'],
+            collectQueryParams(['page', 'search'])
+        );
+
+        $assessments = request()->filled('search')
+            ? $this->assessmentService->scoutSearch(request('search'), [], [], 9)
+            : $this->assessmentService->pagination(9, $filters, ['user']);
 
         return match (Auth::user()->type) {
             'foundation' => view('pages.foundation.index'),
