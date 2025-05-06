@@ -50,7 +50,7 @@
                         </a>
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="{{ route('profile.index') }}">
                                     <i class="bi bi-person-circle me-2"></i> Profile
                                 </a>
                             </li>

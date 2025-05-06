@@ -9,8 +9,12 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return match (Auth::user()->type) {
-            'foundation' => view('pages.foundation.profile'),
+        $user = Auth::user();
+        $assessments = $user->assessments;
+        $assessments->load('category');
+        
+        return match ($user->type) {
+            'foundation' => view('pages.foundation.profile', compact('assessments')),
             'participant' => view('pages.participant.profile'),
             default => redirect()->route('home'),
         };

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -55,5 +56,10 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::needsRehash($value) 
             ? Hash::make($value) 
             : $value;
+    }
+
+    public function assessments(): HasMany
+    {
+        return $this->hasMany(Assessment::class);
     }
 }
