@@ -49,9 +49,9 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <input type="checkbox" name="has_timer" id="has-timer" value="1"
-                                    {{ request('has_timer') == '1' ? 'checked' : '' }}>
-                                <label for="has-timer">Has Timer</label>
+                                <input type="checkbox" name="duration_minutes" id="has-no-timer" value="null"
+                                    {{ request('duration_minutes') == 'null' ? 'checked' : '' }}>
+                                <label for="has-no-timer">Has No Timer</label>
                             </div>
                             <div class="mb-3">
                                 <input type="checkbox" name="auto_grade" id="auto-grade" value="1"
@@ -118,7 +118,7 @@
                                                 {{-- Timer --}}
                                                 <div class="d-flex align-items-center mt-2">
                                                     <i class="bi bi-clock me-1"></i>
-                                                    {{ $assessment->has_timer ? $assessment->duration_minutes . ' mins' : '--' }}
+                                                    {{ $assessment->duration_minutes > 0 ? $assessment->duration_minutes . ' mins' : '--' }}
                                                 </div>
 
                                                 {{-- Auto Grading --}}

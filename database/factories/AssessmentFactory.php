@@ -26,7 +26,7 @@ class AssessmentFactory extends Factory
             'passing_percent' => fake()->numberBetween(50, 85),
             'auto_grade' => fake()->boolean(),
             'access' => fake()->randomElement(['public', 'private']),
-            'duration_minutes' => fake()->optional()->numberBetween(30, 90),
+            'duration_minutes' => fake()->boolean(50) ? fake()->randomElement([30, 60, 90, 120]) : 0,
             'category_id' => Category::inRandomOrder()->value('id'),
             'user_id' => User::where('type', 'foundation')->inRandomOrder()->value('id'),
         ];

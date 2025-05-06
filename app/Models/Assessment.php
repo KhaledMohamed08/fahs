@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 
 class Assessment extends Model
@@ -39,6 +40,9 @@ class Assessment extends Model
 
         static::creating(function ($assessment) {
             $assessment->code = self::generateUniqueCode();
+            if (Auth::check()) {
+                $assessment->user_id = Auth::id();
+            }
         });
     }
 

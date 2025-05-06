@@ -17,7 +17,7 @@ function addQuestion() {
             <div class="row align-items-end">
                 <div class="col-md-6 mb-2">
                     <label class="form-label">Question*</label>
-                    <input type="text" name="questions[${questionIndex}][question]" class="form-control" placeholder="Question" required>
+                    <input type="text" name="questions[${questionIndex}][title]" class="form-control" placeholder="Question" required>
                 </div>
                 <div class="col-md-2 mb-2">
                     <label class="form-label">Score</label>
@@ -157,7 +157,7 @@ function validateAddButton() {
 
     let allValid = true;
     questions.forEach((group) => {
-        const questionInput = group.querySelector('input[name*="[question]"]');
+        const questionInput = group.querySelector('input[name*="[title]"]');
         const typeSelect = group.querySelector('select[name*="[type]"]');
 
         if (!questionInput.value.trim() || !typeSelect.value) {

@@ -14,7 +14,6 @@ class Question extends Model
 
     protected $fillable = [
         'assessment_id',
-        'user_id',
         'type',
         'title',
         'is_true',

@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Assessment::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('type', ['free_text', 'true_false', 'multiple_choice']);
             $table->text('title');
             $table->unsignedInteger('score')->default(10);

@@ -22,7 +22,26 @@ class StoreAssessmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category_id' => 'required|exists:categories,id',
+            'duration_minutes' => 'required|integer|min:0',
+            'questions' => 'required|array|min:1',
+
+            'questions.*.title' => 'required|string|max:1000',
+            'questions.*.score' => 'required|integer|min:10',
+            'questions.*.type' => 'required|in:free_text,true_false,multiple_choice',
+
+            // Free text
+            'questions.*.text_answer_model' => 'nullable|string',
+
+            // True/False
+            'questions.*.is_true' => 'required_if:questions.*.type,true_false|boolean',
+
+            // Multiple choice
+            'questions.*.options' => 'required_if:questions.*.type,multiple_choice|array|min:2',
+            'questions.*.options.*' => 'required|string',
+            'questions.*.correct' => 'required_if:questions.*.type,multiple_choice|integer|min:0',
         ];
     }
 }

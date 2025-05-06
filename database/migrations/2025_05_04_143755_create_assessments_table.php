@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('passing_percent')->default(50);
             $table->boolean('auto_grade')->default(true);
             $table->enum('access', ['public', 'private'])->default('public');
-            $table->unsignedInteger('duration_minutes')->nullable();
+            $table->unsignedInteger('duration_minutes')->default(0);
             $table->boolean('is_active')->default(true);
             $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();

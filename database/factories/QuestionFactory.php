@@ -22,7 +22,6 @@ class QuestionFactory extends Factory
 
         $base = [
             'assessment_id' => Assessment::inRandomOrder()->value('id'),
-            'user_id' => User::inRandomOrder()->value('id'),
             'type' => $type,
             'title' => fake()->sentence(7),
             'score' => fake()->randomElement([10, 20, 30]),

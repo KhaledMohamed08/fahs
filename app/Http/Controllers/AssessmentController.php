@@ -35,7 +35,9 @@ class AssessmentController extends Controller
      */
     public function store(StoreAssessmentRequest $request)
     {
-        dd($request->all());
+        $this->assessmentService->store($request->validated());
+
+        return redirect()->route('profile.index')->with('success', 'Assemmentt Created Successfully.');
     }
 
     /**
