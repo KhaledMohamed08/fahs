@@ -9,7 +9,6 @@ use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Lockout;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 
@@ -39,16 +38,10 @@ class AuthController extends Controller
             'type' => ['required', 'in:foundation,participant']
         ]);
 
-        try {
-            $this->store($request);
+        $this->store($request);
 
-            return redirect()->route('page.login')->with('success', 'Registered successfully. Please log in.');
-        } catch (QueryException $e) {
-            
-            return back()->withErrors(['error' => 'Registration failed. Please try again.']);
-        }
+        return redirect()->route('page.login')->with('success', 'Registered successfully. Please log in.');
     }
-
 
     public function logout(Request $request)
     {
@@ -64,11 +57,11 @@ class AuthController extends Controller
     private function store(Request $request)
     {
         return User::create([
-                'name' => $request->name,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'password' => $request->password,
-                'type' => $request->type,
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => $request->password,
+            'type' => $request->type,
         ]);
     }
 
@@ -111,6 +104,6 @@ class AuthController extends Controller
 
     private function throttleKey(Request $request): string
     {
-        return Str::transliterate(Str::lower($request->input('data')).'|'.$request->ip());
+        return Str::transliterate(Str::lower($request->input('data')) . '|' . $request->ip());
     }
 }

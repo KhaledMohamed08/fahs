@@ -11,7 +11,8 @@
 
             <!-- Illustration -->
             <div class="col-lg-6 d-none d-lg-block">
-                <img src="{{ asset('assets/img/features-illustration-1.webp') }}" alt="Register Illustration" class="img-fluid">
+                <img src="{{ asset('assets/img/features-illustration-1.webp') }}" alt="Register Illustration"
+                    class="img-fluid">
             </div>
 
             <!-- Register Form -->
@@ -27,7 +28,7 @@
                     <!-- Name -->
                     <div class="form-floating mb-3">
                         <input type="text" name="name" id="name" class="form-control" placeholder="Full Name"
-                            required>
+                            value="{{ old('name') }}" required>
                         <label for="name">Full Name*</label>
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
@@ -37,7 +38,7 @@
                     <!-- Phone -->
                     <div class="form-floating mb-3">
                         <input type="text" name="phone" id="phone" class="form-control" placeholder="+201020304050"
-                            required>
+                            value="{{ old('phone') }}" required>
                         <label for="phone">Phone Number*</label>
                         @error('phone')
                             <span class="text-danger">{{ $message }}</span>
@@ -46,7 +47,7 @@
 
                     <!-- Email -->
                     <div class="form-floating mb-3">
-                        <input type="email" name="email" id="email" class="form-control"
+                        <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}"
                             placeholder="name@example.com" required>
                         <label for="email">Email Address*</label>
                         @error('email')
@@ -90,7 +91,7 @@
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="type" id="foundation"
-                                    value="foundation" required>
+                                    {{ old('type') === 'foundation' ? 'checked' : '' }} value="foundation" required>
                                 <label class="form-check-label" for="foundation">
                                     <i class="bi bi-building me-1"></i> Foundation
                                 </label>
