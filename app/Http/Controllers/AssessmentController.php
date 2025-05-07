@@ -45,7 +45,9 @@ class AssessmentController extends Controller
      */
     public function show(Assessment $assessment)
     {
-        //
+        $assessment->load('questions');
+        
+        return view('pages.assessment.show', compact('assessment'));
     }
 
     /**
@@ -69,6 +71,8 @@ class AssessmentController extends Controller
      */
     public function destroy(Assessment $assessment)
     {
-        //
+        $this->assessmentService->destroy($assessment);
+
+        return redirect()->back()->with('success', 'Assessment Deleted Successfully.');
     }
 }

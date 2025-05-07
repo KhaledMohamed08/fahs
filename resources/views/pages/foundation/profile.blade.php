@@ -8,8 +8,8 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="stats-item text-center w-100 h-100">
-                    <span data-purecounter-start="0" data-purecounter-end="{{ $assessments->count() }}"
-                        data-purecounter-duration="1" class="purecounter"></span>
+                    <span data-purecounter-start="0" data-purecounter-end="{{ $assessments->count() }}" data-purecounter-duration="1"
+                        class="purecounter"></span>
                     <p>Assessments</p>
                 </div>
             </div>
@@ -35,7 +35,8 @@
 
         </div>
     </x-page-section>
-    <x-page-section section="Our Assessments" containerClass="container-fluid">
+
+    {{-- <x-page-section section="Our Assessments" containerClass="container-fluid">
         <div class="row">
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle text-center">
@@ -98,6 +99,23 @@
                 </table>
             </div>
         </div>
+    </x-page-section> --}}
+
+    <x-page-section section="Assessments" containerClass="container-fluid">
+        <div class="d-flex justify-content-end my-3">
+            <a href="{{ route('assessments.create') }}" class="btn btn-primary">Create New Assessment</a>
+        </div>
+        <div class="card">
+            <div class="card-header">Manage Assessments</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    {{ $dataTable->table(['class' => 'table table-striped table-hover align-middle text-start']) }}
+                </div>
+            </div>
+        </div>
     </x-page-section>
 
 @endsection
+@push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush

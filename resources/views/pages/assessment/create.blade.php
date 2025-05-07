@@ -4,6 +4,9 @@
     <x-page-title />
 
     <x-page-section section="Create New Assessment">
+        <div class="my-3">
+            <a href="{{ route('profile.index') }}" class="btn btn-primary">Go to Profile</a>
+        </div>
         <form method="POST" action="{{ route('assessments.store') }}">
             @csrf
 
