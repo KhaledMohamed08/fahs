@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\FoundationResultsDataTable;
 use App\Http\Requests\StoreAssessmentRequest;
 use App\Http\Requests\UpdateAssessmentRequest;
 use App\Models\Assessment;
@@ -43,11 +44,13 @@ class AssessmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Assessment $assessment)
+    public function show(Assessment $assessment, FoundationResultsDataTable $foundationResultsDataTable)
     {
-        $assessment->load('questions');
+        $assessment->load('questions', 'results');
+        $categories = app(CategoryService::class)->index();
         
-        return view('pages.assessment.show', compact('assessment'));
+        return $foundationResultsDataTable->render('pages.assessment.show', compact('assessment', 'categories'));
+        // return view('pages.assessment.show', compact('assessment'));
     }
 
     /**
@@ -63,7 +66,9 @@ class AssessmentController extends Controller
      */
     public function update(UpdateAssessmentRequest $request, Assessment $assessment)
     {
-        //
+        $this->assessmentService->update($assessment, $request->validated());
+
+        return redirect()->route('assessments.show', $assessment->id)->with('success', 'assessment updated successfully.');
     }
 
     /**
@@ -74,5 +79,10 @@ class AssessmentController extends Controller
         $this->assessmentService->destroy($assessment);
 
         return redirect()->back()->with('success', 'Assessment Deleted Successfully.');
+    }
+
+    public function policy(Assessment $assessment)
+    {
+        return view('pages.assessment.policy', compact('assessment'));
     }
 }

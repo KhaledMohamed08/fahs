@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\checkAllowToTakeAssessment;
+use App\Http\Middleware\checkResultSubmitSession;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -12,7 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'check.result.submit' => checkResultSubmitSession::class,
+            'check.allow.take.assessment' => checkAllowToTakeAssessment::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (QueryException $e) {

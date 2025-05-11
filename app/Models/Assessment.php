@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Assessment extends Model
 {
@@ -25,6 +27,7 @@ class Assessment extends Model
         'duration_minutes',
         'category_id',
         'user_id',
+        'is_active',
     ];
 
     protected $casts = [
@@ -44,6 +47,10 @@ class Assessment extends Model
                 $assessment->user_id = Auth::id();
             }
         });
+
+        // static::addGlobalScope('active', function (Builder $builder) {
+        //     $builder->where('is_active', true);
+        // });
     }
 
     /**
@@ -72,13 +79,38 @@ class Assessment extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class);
     }
 
-    public function user(): BelongsTo
+    public function questionsPerType(string $type): Collection
     {
-        return $this->belongsTo(User::class);
+        return $this->questions->where('type', $type);
+    }
+
+    public function results(): HasMany
+    {
+        return $this->hasMany(Result::class);
+    }
+
+    public function fullScore(): int
+    {
+        return $this->questions->sum(function ($question) {
+            return $question->score;
+        });
+    }
+
+    public function isPassed($score): bool
+    {
+        $fullScore = $this->fullScore();
+        $requiredScore = ($this->passing_percent / 100) * $fullScore;
+
+        return $score >= $requiredScore;
     }
 }

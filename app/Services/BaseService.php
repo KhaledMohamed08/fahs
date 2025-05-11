@@ -34,9 +34,9 @@ class BaseService
         return $this->model->where($conditions)->with($relations)->paginate($results);
     }
 
-    public function find($id)
+    public function find($id, array $conditions = [], array $relations = [])
     {
-        return $this->model->findOrFail($id);
+        return $this->model->where($conditions)->with($relations)->findOrFail($id);
     }
 
     public function store(array $data)

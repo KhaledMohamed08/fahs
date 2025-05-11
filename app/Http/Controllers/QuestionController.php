@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
+use App\Models\Assessment;
 use App\Models\Question;
 use App\Services\QuestionService;
 
@@ -13,9 +14,11 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Assessment $assessment)
     {
-        //
+        $assessment->load('questions');
+
+        return view('pages.assessment.questions', compact('assessment'));
     }
 
     /**

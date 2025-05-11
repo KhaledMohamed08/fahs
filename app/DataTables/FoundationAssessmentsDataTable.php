@@ -56,11 +56,9 @@ class FoundationAssessmentsDataTable extends DataTable
                     : '<span class="text-danger">Private</span>';
             })
             
-            ->editColumn('created_at', function(Assessment $assessment) {
-                return $assessment->created_at->format('M d, Y');
-            })
+            ->editColumn('created_at', fn (Assessment $assessment) => $assessment->created_at->format('M d, Y'))
             ->addColumn('category', fn(Assessment $assessment) => $assessment->category?->title)
-            ->removeColumn('description', 'passing_percent', 'updated_at')
+            ->removeColumn('updated_at', 'description', 'passing_percent')
             ->rawColumns(['action', 'difficulty_level', 'is_active', 'access', 'auto_grade', 'passing_percent'])
             ->setRowId('id');
     }
@@ -106,7 +104,6 @@ class FoundationAssessmentsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            // Column::make('id'),
             Column::make('code'),
             Column::make('title'),
             Column::make('difficulty_level')

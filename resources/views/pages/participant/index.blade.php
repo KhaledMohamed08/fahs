@@ -3,12 +3,11 @@
 @section('title', 'Paricipant')
 
 @section('content')
-    <x-page-title/>
+    <x-page-title />
 
     <x-page-section section="Assessments"
         description="Explore a wide range of assessments tailored to your field. Take more challenges, track your progress, and continuously sharpen your skills."
-        containerClass="container-fluid"
-        containerId="assessments-container">
+        containerClass="container-fluid" containerId="assessments-container">
         <div class="row">
             {{-- Filter Sidebar --}}
             <div class="col-md-3">
@@ -73,7 +72,8 @@
                         @foreach ($assessments as $assessment)
                             <div class="col">
                                 <div class="card position-relative h-100 d-flex flex-column">
-                                    {{-- Difficulty Badge --}}
+
+                                    {{-- Difficulty Badge (top-right) --}}
                                     <span
                                         class="position-absolute top-0 end-0 m-2 badge bg-{{ App\Enums\DifficultyLevelEnum::from($assessment->difficulty_level)->badge() }}">
                                         {{ App\Enums\DifficultyLevelEnum::from($assessment->difficulty_level)->label() }}
@@ -95,8 +95,9 @@
                                             {{-- User --}}
                                             <div class="d-flex align-items-center me-2 my-2 fw-bolder">
                                                 <i class="bi bi-person-circle me-1"></i>
-                                                <span title="{{ $assessment->user->name }}"
-                                                    class="text-truncate">{{ Str::limit($assessment->user->name, 40) }}</span>
+                                                <span title="{{ $assessment->user->name }}" class="text-truncate">
+                                                    {{ Str::limit($assessment->user->name, 40) }}
+                                                </span>
                                             </div>
                                             <div class="d-flex justify-content-between flex-wrap gap-2">
                                                 {{-- Category --}}
@@ -107,7 +108,6 @@
                                                         {{ Str::limit($assessment->category->title, 15) }}
                                                     </span>
                                                 </div>
-
                                                 {{-- Date --}}
                                                 <div class="d-flex align-items-center me-2">
                                                     <i class="bi bi-calendar-event me-1"></i>
@@ -120,20 +120,27 @@
                                                     <i class="bi bi-clock me-1"></i>
                                                     {{ $assessment->duration_minutes > 0 ? $assessment->duration_minutes . ' mins' : '--' }}
                                                 </div>
-
                                                 {{-- Auto Grading --}}
                                                 <div class="d-flex align-items-center me-2">
                                                     <i class="bi bi-check2-square me-1"></i>
                                                     {{ $assessment->auto_grade ? 'Auto Grading' : 'Manual Grading' }}
                                                 </div>
                                             </div>
-
                                         </div>
 
                                         {{-- CTA Button --}}
-                                        <div class="mt-auto">
-                                            <a href="#" class="btn btn-primary">Take an Assessment</a>
-                                        </div>
+                                        @if ($resultsAssessmentsIds->contains($assessment->id))
+                                            <span class="text-success fw-semibold">
+                                                Assessment taken.
+                                                <a href="#" class="fw-normal">show result</a>
+                                            </span>
+                                        @else
+                                            <a href="{{ route('assessments.policy', $assessment->id) }}"
+                                                class="btn btn-primary">
+                                                Take Assessment
+                                            </a>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>

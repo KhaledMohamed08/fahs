@@ -26,6 +26,10 @@ class StoreAssessmentRequest extends FormRequest
             'description' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
             'duration_minutes' => 'required|integer|min:0',
+            'auto_grade' => 'nullable|boolean',
+            'access' => 'nullable|in:public,private',
+            'difficulty_level'=> 'nullable|integer|min:1',
+            'passing_percent' => 'nullable|integer|min:0|max:100',
             'questions' => 'required|array|min:1',
 
             'questions.*.title' => 'required|string|max:1000',

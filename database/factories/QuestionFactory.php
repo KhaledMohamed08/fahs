@@ -21,7 +21,8 @@ class QuestionFactory extends Factory
         $type = fake()->randomElement(['free_text', 'true_false', 'multiple_choice']);
 
         $base = [
-            'assessment_id' => Assessment::inRandomOrder()->value('id'),
+            // 'assessment_id' => Assessment::inRandomOrder()->value('id'),
+            'assessment_id' => fake()->numberBetween(1, 50),
             'type' => $type,
             'title' => fake()->sentence(7),
             'score' => fake()->randomElement([10, 20, 30]),
