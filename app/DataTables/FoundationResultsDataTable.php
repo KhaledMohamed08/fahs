@@ -45,7 +45,7 @@ class FoundationResultsDataTable extends DataTable
      */
     public function query(Result $model): QueryBuilder
     {
-        return $model->with('user')->newQuery();
+        return $model->where('assessment_id', request()->route('assessment')->id)->with('user')->newQuery();
     }
 
     /**

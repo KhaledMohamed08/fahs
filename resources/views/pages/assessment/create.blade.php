@@ -78,7 +78,7 @@
                         <div class="col-md-4 mb-3">
                             <label for="passing_percent" class="form-label">Passing Percentage (%)</label>
                             <input type="number" name="passing_percent" id="passing_percent" min="50"
-                                class="form-control [&::-webkit-inner-spin-button]:appearance-none"
+                                class="form-control"
                                 value="{{ old('passing_percent', 50) }}">
                         </div>
 
@@ -86,7 +86,7 @@
                         <div class="col-md-4 mb-3">
                             <label for="duration_minutes" class="form-label">Duration (minutes)</label>
                             <input type="number" name="duration_minutes" id="duration_minutes" min="0"
-                                class="form-control [&::-webkit-inner-spin-button]:appearance-none"
+                                class="form-control"
                                 value="{{ old('duration_minutes', 0) }}">
                             <small class="text-muted">Set 0 for no time limit.</small>
                         </div>

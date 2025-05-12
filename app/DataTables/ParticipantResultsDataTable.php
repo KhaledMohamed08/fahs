@@ -24,7 +24,7 @@ class ParticipantResultsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function (Result $result) {
-                return '<a title="show" href="' . route('results.show', $result->id) . '" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a>';
+                return $result->status === 'done' ? '<a href="' . route('results.participant.show', $result->id) . '" title="show" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a>' : '-';
             })
             ->addColumn('assessment_code', fn(Result $result) => $result->assessment?->code)
             ->editColumn('assessment', fn(Result $result) => $result->assessment?->title)
@@ -33,10 +33,9 @@ class ParticipantResultsDataTable extends DataTable
                     . \App\Enums\ResultStatusEnum::from($result->status)->label()
                     . '</span>';
             })
-            ->editColumn('created_at', fn (Result $result) => $result->created_at->format('M d, Y'))
             ->rawColumns(['status', 'action'])
             ->setRowId('id')
-            ->removeColumn('updated_at', 'score');
+            ->removeColumn('created_at', 'updated_at', 'score');
     }
 
     /**
@@ -79,7 +78,6 @@ class ParticipantResultsDataTable extends DataTable
             Column::make('assessment'),
             Column::make('assessment_code'),
             Column::make('status'),
-            Column::make('created_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

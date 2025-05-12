@@ -8,7 +8,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="stats-item text-center w-100 h-100">
-                    <span data-purecounter-start="0" data-purecounter-end="{{ $assessments->count() }}" data-purecounter-duration="1"
+                    <span data-purecounter-start="0" data-purecounter-end="{{ $assessmentsCount }}" data-purecounter-duration="1"
                         class="purecounter"></span>
                     <p>Assessments</p>
                 </div>
@@ -17,18 +17,18 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="stats-item text-center w-100 h-100">
-                    <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
+                    <span data-purecounter-start="0" data-purecounter-end="{{ $assessmentsResultsCount }}" data-purecounter-duration="1"
                         class="purecounter"></span>
-                    <p>Attends</p>
+                    <p>Results</p>
                 </div>
             </div>
             {{-- End Stats Item --}}
 
             <div class="col-lg-4 col-md-6">
                 <div class="stats-item text-center w-100 h-100">
-                    <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
+                    <span data-purecounter-start="0" data-purecounter-end="{{ $assessmentsResultsUsersCount }}" data-purecounter-duration="1"
                         class="purecounter"></span>
-                    <p>participant</p>
+                    <p>participants</p>
                 </div>
             </div>
             {{-- End Stats Item --}}

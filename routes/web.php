@@ -22,8 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('questions', QuestionController::class)->except('index');
     Route::get('{assessment}/questions', [QuestionController::class, 'index'])->name('questions.index');
     Route::resource('results', ResultController::class)->except('create');
+    Route::get('results/participant/{result}', [ResultController::class, 'showForParticipant'])->name('results.participant.show');
+    Route::get('results/participant/details/{result}', [ResultController::class, 'resultDetailsForParticipant'])->name('results.participant.details');
     Route::get('results/create/{assessment}', [ResultController::class, 'create'])->middleware('check.allow.take.assessment')->name('results.create');
-    Route::get('results/submit/{result}', [ResultController::class, 'submitReview'])->middleware('check.result.submit')->name('results.submit');
+    Route::get('results/submit-review/{result}', [ResultController::class, 'submitReview'])->middleware('check.result.submit')->name('results.review.submit');
+    Route::post('results/submit-result/{result}', [ResultController::class, 'submitResult'])->name('results.submit');
     Route::get('assessments-policy/{assessment}', [AssessmentController::class, 'policy'])->middleware('check.allow.take.assessment')->name('assessments.policy');
     Route::get('index', [AppController::class, 'getStarted'])->name('get.started');
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');

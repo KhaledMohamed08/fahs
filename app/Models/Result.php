@@ -6,22 +6,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Result extends Model
 {
-    /** @use HasFactory<\Database\Factories\ResultFactory> */
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         'assessment_id',
         'user_id',
         'score',
         'status',
+        'is_passed',
     ];
 
     protected $casts = [
         'score' => 'integer',
+        'is_passed' => 'boolean',
     ];
 
     protected static function boot()
@@ -43,5 +44,10 @@ class Result extends Model
     public function assessment(): BelongsTo
     {
         return $this->belongsTo(Assessment::class);
+    }
+
+    public function details(): HasMany
+    {
+        return $this->hasMany(ResultDetails::class);
     }
 }

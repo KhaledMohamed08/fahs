@@ -24,6 +24,8 @@ class Question extends Model
 
     protected $casts = [
         'options' => 'array',
+        'is_true' => 'boolean',
+        'score' => 'integer',
     ];
 
     public function assessment(): BelongsTo

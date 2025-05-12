@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Assessment;
-use App\Models\User;
+use App\Models\Question;
+use App\Models\Result;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('results', function (Blueprint $table) {
+        Schema::create('result_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Assessment::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(Result::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(Question::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->longText('user_answer')->nullable();
             $table->unsignedInteger('score')->nullable();
-            $table->enum('status', ['pending', 'reviewing', 'done'])->default('pending');
-            $table->boolean('is_passed')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('results');
+        Schema::dropIfExists('result_details');
     }
 };

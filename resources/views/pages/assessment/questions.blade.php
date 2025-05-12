@@ -13,10 +13,10 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-end gap-2">
                         <span class="badge bg-success fs-6 py-2">Score: {{ $question->score }}</span>
-                        <button class="btn btn-sm btn-warning d-flex align-items-center gap-1"
+                        {{-- <button class="btn btn-sm btn-warning d-flex align-items-center gap-1"
                             data-bs-toggle="modal" data-bs-target="#editQuestionModal{{ $question->id }}">
                             <i class="bi bi-pencil-square"></i>
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
 

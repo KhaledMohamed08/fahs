@@ -10,8 +10,8 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="stats-item text-center w-100 h-100">
-                    <span data-purecounter-start="0" data-purecounter-end="{{ $results->count() }}" data-purecounter-duration="1"
-                        class="purecounter"></span>
+                    <span data-purecounter-start="0" data-purecounter-end="{{ $results->count() }}"
+                        data-purecounter-duration="1" class="purecounter"></span>
                     <p>Results</p>
                 </div>
             </div>
@@ -38,7 +38,7 @@
         </div>
     </x-page-section>
 
-    <x-page-section section="Results" containerClass="container-fluid">
+    <x-page-section section="Results">
         <div class="card">
             <div class="card-header">Results</div>
             <div class="card-body">

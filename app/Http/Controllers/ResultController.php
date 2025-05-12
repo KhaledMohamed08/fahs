@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateResultRequest;
 use App\Models\Assessment;
 use App\Models\Result;
 use App\Services\ResultService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
@@ -26,7 +27,7 @@ class ResultController extends Controller
     public function create(Assessment $assessment)
     {
         // if (session('assessment_start')) {
-        //     abort(401, 'You cannot start a new assessment while one is already in progress.');
+        //     abort(403, 'You cannot start a new assessment while one is already in progress.');
         // }
 
         $assessment->load('questions');
@@ -47,7 +48,7 @@ class ResultController extends Controller
 
         $result = $this->resultService->store($request->validated());
 
-        return redirect()->route('results.submit', $result->id)->with('result', 'submit successfullt');
+        return redirect()->route('results.review.submit', $result->id)->with('result', 'submit successfullt');
     }
 
     /**
@@ -59,9 +60,19 @@ class ResultController extends Controller
             $this->resultService->updateResultStatus($result);
         }
 
-        $result->load('user', 'assessment');
+        $result->load('user', 'assessment', 'details');
 
-        return view('pages.result.show', compact('result'));
+        return view('pages.result.show-foundation', compact('result'));
+    }
+
+    public function showForParticipant(Result $result)
+    {
+        return view('pages.result.show-participant', compact('result'));
+    }
+
+    public function resultDetailsForParticipant(Result $result)
+    {
+        return view('pages.result.participant-details', compact('result'));
     }
 
     /**
@@ -91,5 +102,19 @@ class ResultController extends Controller
     public function submitReview(Result $result)
     {
         return view('pages.result.result-submit', compact('result'));
+    }
+
+    public function submitResult(Request $request, Result $result)
+    {
+        if ($result->status === 'done')
+            abort(403, 'This result has already been submitted and cannot be modified.');
+
+        $data = $request->validate([
+            'score' => 'required|array',
+        ]);
+
+        $this->resultService->submitResult($data, $result);
+
+        return redirect()->route('assessments.show', $result->assessment->id)->with('success', 'Result Submited Successfully.');
     }
 }

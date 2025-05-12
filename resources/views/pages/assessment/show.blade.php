@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Assessmrnt')
+@section('title', 'Assessment')
 @section('content')
     <x-page-title />
 
