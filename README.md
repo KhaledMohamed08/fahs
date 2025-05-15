@@ -103,14 +103,14 @@ Follow these steps to set up **Fahs** on your local machine:
     ```
     The application will be available at [http://localhost:8000](http://localhost:8000).
 
-## Code of Conduct
+## 🧪 Usage
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Foundations can register/login to create and assign assessments.
+- Participants access assessments via unique links or codes.
+- All responses are submitted and evaluated automatically.
+- Results are stored and accessible through the dashboard.
 
-## Security Vulnerabilities
+## 📬 Contact
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Developed by [Khaled Mohamed](https://github.com/KhaledMohamed08)  
+For inquiries or contributions, please open an issue or reach out via [GitHub](https://github.com/KhaledMohamed08/fahs).
