@@ -19,7 +19,7 @@
 - PHP >= 8.1
 - Composer
 - Laravel >= 10
-- MySQL or PostgreSQL
+- MySQL or PostgreSQL or SQLite
 - Node.js & NPM (for asset compilation)
 
 ## 🚀 Installation
@@ -27,39 +27,81 @@
 Follow these steps to set up **Fahs** on your local machine:
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/KhaledMohamed08/fahs.git
-   cd fahs
+    ```bash
+    git clone https://github.com/KhaledMohamed08/fahs.git
+    cd fahs
+    ```
+
 2. **Install PHP dependencies using Composer**
-   ```bash
-   composer install
+    ```bash
+    composer install
+    ```
+
 3. **Copy the .env file and generate the application key**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
 4. **Set up your database**
-   - Open the .env file and configure your database connection:
-   ```ini
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=fahs_db
-   DB_USERNAME=root
-   DB_PASSWORD=your_password
+
+    Fahs supports **MySQL** (default) and **SQLite**. Choose one of the following:
+
+    <details>
+    <summary>🔹 MySQL Configuration (default)</summary>
+
+    1. Create a database in MySQL (e.g., `fahs_db`).
+    2. Open the `.env` file and update these lines:
+        ```ini
+        DB_CONNECTION=mysql
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=fahs_db
+        DB_USERNAME=root
+        DB_PASSWORD=your_password
+        ```
+    </details>
+
+    <details>
+    <summary>🔹 SQLite Configuration (alternative)</summary>
+
+    1. Create a new SQLite database file:
+        ```bash
+        touch database/database.sqlite
+        ```
+
+    2. Open the `.env` file and update these lines:
+        ```ini
+        DB_CONNECTION=sqlite
+        DB_DATABASE=${DB_DATABASE_PATH}/database/database.sqlite
+        ```
+       **Note:** If the variable ${DB_DATABASE_PATH} doesn't work, replace it with the full path to the file.
+       
+       **Tip:** To get the absolute path, run `pwd` in your project directory and append `/database/database.sqlite`.  
+            Then update your `.env` file as follows:
+    </details>
+
 5. **Run database migrations**
     ```bash
     php artisan migrate
+    ```
+
 6. **(Optional) Seed the database with sample data**
     ```bash
     php artisan db:seed
+    ```
+
 7. **Install frontend dependencies**
-   ```bash
+    ```bash
     npm install
     npm run build
+    ```
+
 8. **Start the local development server**
-   ```bash
+    ```bash
     php artisan serve
-The application will be available at http://localhost:8000.
+    ```
+    The application will be available at [http://localhost:8000](http://localhost:8000).
 
 ## 🧪 Usage
 
