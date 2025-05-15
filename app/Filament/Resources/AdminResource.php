@@ -99,9 +99,11 @@ class AdminResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn () => Auth::guard('admin')->user()->type === 'super_admin'),
                 Tables\Actions\DeleteAction::make()
-                    ->requiresConfirmation(),
+                    ->requiresConfirmation()
+                    ->visible(fn () => Auth::guard('admin')->user()->type === 'super_admin'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

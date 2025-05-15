@@ -55,7 +55,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{ route('settings.index') }}">
                                     <i class="bi bi-gear me-2"></i> Settings
                                 </a>
                             </li>

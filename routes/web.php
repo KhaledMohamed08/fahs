@@ -5,6 +5,7 @@ use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ResultController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
@@ -30,10 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::get('assessments-policy/{assessment}', [AssessmentController::class, 'policy'])->middleware('check.allow.take.assessment')->name('assessments.policy');
     Route::get('index', [AppController::class, 'getStarted'])->name('get.started');
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('settings', fn () => view('pages.settings.settings'))->name('settings.index');
+    Route::put('settings/update-info', [SettingController::class, 'updateInfo'])->name('settings.update.info');
+    Route::put('settings/reset-password', [SettingController::class, 'resetPassword'])->name('settings.reset.password');
+    Route::delete('settings/delete-account', [SettingController::class, 'deleteAcount'])->name('settings.delete.account');
 });
 
 // Guest Protected Routes.
-Route::middleware('auth')->group(function () {
+Route::middleware('guest')->group(function () {
 
 });
 

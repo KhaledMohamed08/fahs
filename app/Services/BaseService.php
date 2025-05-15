@@ -56,11 +56,6 @@ class BaseService
         return $model;
     }
 
-    public function search(string $query)
-    {
-        return $this->model->search($query)->get();
-    }
-
     public function scoutSearch(string $field, array $conditions = [], array $relations = [], int $perPage = 0)
     {
         $collection = $this->model->search($field)->get();
