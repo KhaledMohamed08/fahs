@@ -112,5 +112,5 @@ Follow these steps to set up **Fahs** on your local machine:
 
 ## 📬 Contact
 
-Developed by [Khaled Mohamed Ahmed](https://github.com/KhaledMohamed08)  
+Developed by [Khaled Mohamed](https://github.com/KhaledMohamed08)  
 For inquiries or contributions, please open an issue or reach out via [GitHub](https://github.com/KhaledMohamed08/fahs).
