@@ -88,7 +88,7 @@
             @endforelse
 
             <div class="text-end mt-4">
-                <h5><a href="{{ route('results.participant.show', $result->id) }}">Back</a></h5>
+                <h5><a href="{{ route('results.show', $result->id) }}">Back</a></h5>
             </div>
     </x-page-section>
 @endsection

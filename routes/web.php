@@ -22,15 +22,18 @@ Route::middleware('auth')->group(function () {
     Route::resource('assessments', AssessmentController::class);
     Route::resource('questions', QuestionController::class)->except('index');
     Route::get('{assessment}/questions', [QuestionController::class, 'index'])->name('questions.index');
+    Route::get('assessments-policy/{assessment}', [AssessmentController::class, 'policy'])->middleware('check.allow.take.assessment')->name('assessments.policy');
+
     Route::resource('results', ResultController::class)->except('create');
-    Route::get('results/participant/{result}', [ResultController::class, 'showForParticipant'])->name('results.participant.show');
     Route::get('results/participant/details/{result}', [ResultController::class, 'resultDetailsForParticipant'])->name('results.participant.details');
     Route::get('results/create/{assessment}', [ResultController::class, 'create'])->middleware('check.allow.take.assessment')->name('results.create');
     Route::get('results/submit-review/{result}', [ResultController::class, 'submitReview'])->middleware('check.result.submit')->name('results.review.submit');
     Route::post('results/submit-result/{result}', [ResultController::class, 'submitResult'])->name('results.submit');
-    Route::get('assessments-policy/{assessment}', [AssessmentController::class, 'policy'])->middleware('check.allow.take.assessment')->name('assessments.policy');
+
     Route::get('index', [AppController::class, 'getStarted'])->name('get.started');
+
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    
     Route::get('settings', fn () => view('pages.settings.settings'))->name('settings.index');
     Route::put('settings/update-info', [SettingController::class, 'updateInfo'])->name('settings.update.info');
     Route::put('settings/reset-password', [SettingController::class, 'resetPassword'])->name('settings.reset.password');

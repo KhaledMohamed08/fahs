@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Result;
+use App\Models\Assessment;
+use Illuminate\Http\Request;
+use App\Services\ResultService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreResultRequest;
 use App\Http\Requests\UpdateResultRequest;
-use App\Models\Assessment;
-use App\Models\Result;
-use App\Services\ResultService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Services\UserService;
 
 class ResultController extends Controller
 {
@@ -26,6 +28,8 @@ class ResultController extends Controller
      */
     public function create(Assessment $assessment)
     {
+        Gate::authorize('create', Result::class);
+
         // if (session('assessment_start')) {
         //     abort(403, 'You cannot start a new assessment while one is already in progress.');
         // }
@@ -41,6 +45,8 @@ class ResultController extends Controller
      */
     public function store(StoreResultRequest $request)
     {
+        Gate::authorize('create', Result::class);
+
         session()->forget([
             "assessment_start_time_{$request['assessment_id']}",
             "assessment_start"
@@ -56,14 +62,22 @@ class ResultController extends Controller
      */
     public function show(Result $result)
     {
-        if (Auth::user()->type === 'foundation') {
+        $user = app(UserService::class)->find(Auth::id());
+
+        if ($user->hasRole('foundation')) {
             $this->resultService->updateResultStatus($result);
+            $result->load('user', 'assessment', 'details');
+
+            return view('pages.result.show-foundation', compact('result'));
         }
 
-        $result->load('user', 'assessment', 'details');
+        if ($user->hasRole('participant')) {
+            return view('pages.result.show-participant', compact('result'));
+        }
 
-        return view('pages.result.show-foundation', compact('result'));
+        abort(403);
     }
+
 
     public function showForParticipant(Result $result)
     {

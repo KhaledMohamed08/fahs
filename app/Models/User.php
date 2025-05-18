@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -53,10 +54,28 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($value)
     {
-        $this->attributes['password'] = Hash::needsRehash($value) 
-            ? Hash::make($value) 
+        $this->attributes['password'] = Hash::needsRehash($value)
+            ? Hash::make($value)
             : $value;
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (self $user) {
+            $role = match ($user->type) {
+                'foundation'  => 'foundation',
+                'participant' => 'participant',
+                default       => 'guest',
+            };
+
+            if (! $user->hasRole($role)) {
+                $user->assignRole($role);
+            }
+        });
+    }
+
 
     public function assessments(): HasMany
     {

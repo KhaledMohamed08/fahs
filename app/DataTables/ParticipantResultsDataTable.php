@@ -24,7 +24,7 @@ class ParticipantResultsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function (Result $result) {
-                return $result->status === 'done' ? '<a href="' . route('results.participant.show', $result->id) . '" title="show" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a>' : '-';
+                return $result->status === 'done' ? '<a href="' . route('results.show', $result->id) . '" title="show" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a>' : '-';
             })
             ->addColumn('assessment_code', fn(Result $result) => $result->assessment?->code)
             ->editColumn('assessment', fn(Result $result) => $result->assessment?->title)
