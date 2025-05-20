@@ -12,6 +12,7 @@
         "laravel/framework": "^12.0",
         "laravel/scout": "^10.14",
         "laravel/tinker": "^2.10.1",
+        "resend/resend-php": "^0.18.0",
         "spatie/laravel-permission": "^6.18",
         "yajra/laravel-datatables": "^12.0",
         "yajra/laravel-datatables-buttons": "^12.0",

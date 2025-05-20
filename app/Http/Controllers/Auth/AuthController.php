@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Mail\VerifyUser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Lockout;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 
@@ -38,7 +41,9 @@ class AuthController extends Controller
             'type' => ['required', 'in:foundation,participant']
         ]);
 
-        $this->store($request);
+        $user = $this->store($request);
+
+        event(new Registered($user));
 
         return redirect()->route('page.login')->with('success', 'Registered successfully. Please log in.');
     }

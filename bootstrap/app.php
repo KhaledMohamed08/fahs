@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\checkAllowToTakeAssessment;
+use App\Http\Middleware\CheckNotVerifiedEmail;
 use App\Http\Middleware\checkResultSubmitSession;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
@@ -17,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'check.result.submit' => checkResultSubmitSession::class,
             'check.allow.take.assessment' => checkAllowToTakeAssessment::class,
+            'not-verified' => CheckNotVerifiedEmail::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

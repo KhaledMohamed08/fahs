@@ -63,7 +63,7 @@
                     <div class="text-center mt-3 d-flex flex-column gap-2">
                         <small>
                             Forgot your password?
-                            <a href="#">Reset here</a>
+                            <a href=" {{ route('password.request') }}">Reset here</a>
                         </small>
                         <small>
                             Don’t have an account?

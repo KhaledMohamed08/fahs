@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('index', [AppController::class, 'getStarted'])->name('get.started');
 
-    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index')->middleware('verified');
     
     Route::get('settings', fn () => view('pages.settings.settings'))->name('settings.index');
     Route::put('settings/update-info', [SettingController::class, 'updateInfo'])->name('settings.update.info');
